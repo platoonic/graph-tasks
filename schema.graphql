@@ -1,0 +1,44 @@
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+}
+
+enum Status {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+type Task {
+  id: ID!
+  title: String!
+  description: String
+  priority: Priority
+  status: Status 
+}
+
+type CreateTaskForm {
+  title: String!
+  description: String
+  priority: Priority
+  status: Status
+}
+
+type UpdateTaskForm {
+  title: String!
+  description: String
+  priority: Priority
+  status: Status
+}
+
+type Query {
+  getTasks: [Task]!
+  getTask: Task!
+}
+
+type Mutations {
+  createTask: (taskForm: NewTaskForm) : Task!
+  updateTask: (taskForm: UpdateTaskForm) : Task!
+  deleteTask: (taskID: ID!) : Task!
+}
