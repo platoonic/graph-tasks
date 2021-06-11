@@ -15,7 +15,7 @@ type Task {
   title: String!
   description: String
   priority: Priority
-  status: Status 
+  status: Status
 }
 
 type CreateTaskForm {
@@ -38,7 +38,7 @@ type Query {
 }
 
 type Mutations {
-  createTask: (taskForm: NewTaskForm) : Task!
-  updateTask: (taskForm: UpdateTaskForm) : Task!
-  deleteTask: (taskID: ID!) : Task!
+  createTask(taskForm: NewTaskForm): Task!
+  updateTask(taskForm: UpdateTaskForm): Task!
+  deleteTask(taskID: ID!): Task!
 }
