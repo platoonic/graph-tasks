@@ -13,6 +13,7 @@ enum Status {
 type Task {
   id: ID!
   title: String!
+  index: Int!
   description: String
   priority: Priority
   status: Status
