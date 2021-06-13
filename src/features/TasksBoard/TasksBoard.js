@@ -13,7 +13,8 @@ const BoardContainer = styled.div`
 
 const TasksBoard = () => {
   const [tasks, dispatch] = useReducer(tasksReducer, {
-    status: "IDLE",
+    //status: "IDLE",
+    status: "LOADING",
     todo: [
       {
         id: 1,
@@ -59,13 +60,25 @@ const TasksBoard = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <BoardContainer>
-        <TasksList id="todo" title="TODO" tasks={tasks.todo} canAddTasks />
+        <TasksList
+          id="todo"
+          title="TODO"
+          tasks={tasks.todo}
+          canAddTasks
+          status={tasks.status}
+        />
         <TasksList
           id="inProgress"
           title="IN PROGRESS"
           tasks={tasks.inProgress}
+          status={tasks.status}
         />
-        <TasksList id="done" title="DONE" tasks={tasks.done} />
+        <TasksList
+          id="done"
+          title="DONE"
+          tasks={tasks.done}
+          status={tasks.status}
+        />
       </BoardContainer>
     </DragDropContext>
   );
