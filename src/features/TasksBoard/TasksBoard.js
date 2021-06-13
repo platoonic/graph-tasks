@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react";
+import { useReducer } from "react";
 import TasksList from "../../shared/components/TasksList";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -63,8 +63,8 @@ const TasksBoard = () => {
           id="todo"
           title="TODO"
           tasks={tasks.todo}
-          canAddTasks
           status={tasks.status}
+          canAddTasks
         />
         <TasksList
           id="inProgress"

@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledButton = styled.a`
-  background-color: #4bc95b;
+  background-color: #2189eb;
   text-align: center;
   justify-content: center;
   display: flex;
@@ -15,14 +15,23 @@ const StyledButton = styled.a`
   transition: 0.3s;
   user-select: none;
   &:hover {
-    background-color: #35a143;
     color: white;
   }
+  ${(props) =>
+    props.success &&
+    css`
+      background-color: #35a143;
+    `}
+  ${(props) =>
+    props.danger &&
+    css`
+      background-color: #bd3e3e;
+    `}
 `;
 
-const Button = ({ children, onClick }) => {
+const Button = ({ children, onClick, ...rest }) => {
   return (
-    <StyledButton onClick={() => (onClick ? onClick : null)}>
+    <StyledButton {...rest} onClick={() => onClick()}>
       {children}
     </StyledButton>
   );

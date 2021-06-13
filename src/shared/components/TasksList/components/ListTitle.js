@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 export default styled.h1`
   color: white;
+  flex: 1;
   background: -webkit-linear-gradient(left, #d435d4, #14203d);
   letter-spacing: 1rem;
   ${(props) =>

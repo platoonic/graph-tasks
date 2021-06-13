@@ -1,9 +1,11 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { Droppable, Draggable } from "react-beautiful-dnd";
-import TaskCard from "../TaskCard";
-import ListTitle from "./ListTitle";
 import Button from "../Button";
-import TaskCardLoading from "../TaskCard/TaskCard.loading";
+import { Droppable } from "react-beautiful-dnd";
+import TaskCard from "../TaskCard";
+import ListTitle from "./components/ListTitle";
+import ListItems from "./components/ListItems";
+import ListItemsLoading from "./components/ListItemsLoading";
 
 const ListContainer = styled.div`
   border-radius: 5px;
@@ -15,11 +17,8 @@ const ListContainer = styled.div`
   flex-basis: 33.333333%;
 `;
 
-const DraggableItem = styled.div`
-  margin-top: 20px;
-`;
-
-const TasksList = ({ id, title, tasks, canAddTasks, status }) => {
+const TasksList = ({ id, title, tasks, canAddTasks, onTaskAdded, status }) => {
+  const [showTaskForm, setShowTaskForm] = useState(false);
   return (
     // Droppable Area
     <Droppable droppableId={id}>
@@ -31,43 +30,54 @@ const TasksList = ({ id, title, tasks, canAddTasks, status }) => {
               style={{
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "space-between",
               }}
             >
               <ListTitle title={title}>{title}</ListTitle>
-              <Button>ADD TASK</Button>
+              {status !== "LOADING" &&
+                (!showTaskForm ? (
+                  <Button
+                    onClick={() =>
+                      setShowTaskForm((showTaskForm) => !showTaskForm)
+                    }
+                  >
+                    ADD TASK
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      danger
+                      onClick={() =>
+                        setShowTaskForm((showTaskForm) => !showTaskForm)
+                      }
+                      style={{ marginRight: 10 }}
+                    >
+                      CANCEL
+                    </Button>
+                    <Button
+                      success
+                      onClick={() =>
+                        setShowTaskForm((showTaskForm) => !showTaskForm)
+                      }
+                    >
+                      SAVE
+                    </Button>
+                  </>
+                ))}
             </div>
           ) : (
             <ListTitle title={title}>{title}</ListTitle>
           )}
+          {/* Task Form */}
+          {showTaskForm && <TaskCard form style={{ marginTop: 20 }} />}
           {/* 
               Show loading cards skeleton (if loading)
               or Draggable List Task items (if fetched) 
           */}
-          {status === "LOADING"
-            ? [...Array(3)].map((card, index) => (
-                <DraggableItem>
-                  <TaskCard key={index} loading />
-                </DraggableItem>
-              ))
-            : tasks.map((task, index) => (
-                <Draggable
-                  key={task.id}
-                  draggableId={String(task.id)}
-                  index={index}
-                >
-                  {(provided) => (
-                    <DraggableItem
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={provided.draggableProps.style}
-                    >
-                      <TaskCard {...task} />
-                    </DraggableItem>
-                  )}
-                </Draggable>
-              ))}
+          {status === "LOADING" ? (
+            <ListItemsLoading />
+          ) : (
+            <ListItems tasks={tasks} />
+          )}
 
           {provided.placeholder}
         </ListContainer>
