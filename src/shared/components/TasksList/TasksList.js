@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import TaskCard from "../TaskCard";
 import ListTitle from "./ListTitle";
+import Button from "../Button";
 
 const ListContainer = styled.div`
   border-radius: 5px;
@@ -17,13 +18,26 @@ const DraggableItem = styled.div`
   margin-top: 20px;
 `;
 
-const TasksList = ({ id, title, tasks }) => {
+const TasksList = ({ id, title, tasks, canAddTasks }) => {
   return (
     <Droppable droppableId={id}>
       {(provided) => (
         <ListContainer ref={provided.innerRef} {...provided.droppableProps}>
           {/* List Title */}
-          <ListTitle title={title}>{title}</ListTitle>
+          {canAddTasks ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <ListTitle title={title}>{title}</ListTitle>
+              <Button>ADD TASK</Button>
+            </div>
+          ) : (
+            <ListTitle title={title}>{title}</ListTitle>
+          )}
           {/* Draggable List Task items */}
           {tasks.map((task, index) => (
             <Draggable

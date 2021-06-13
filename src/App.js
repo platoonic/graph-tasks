@@ -37,7 +37,7 @@ function App() {
           width="150"
           height="150"
         />
-        <AppTitle>Graph Tasks</AppTitle>
+        <AppTitle>GRAPH TASKS</AppTitle>
         <AppDescription>
           Drag&Drop Todo List based on ReactJS/GraphQL/Express
         </AppDescription>

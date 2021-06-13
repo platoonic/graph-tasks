@@ -59,7 +59,7 @@ const TasksBoard = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <BoardContainer>
-        <TasksList id="todo" title="TODO" tasks={tasks.todo} />
+        <TasksList id="todo" title="TODO" tasks={tasks.todo} canAddTasks />
         <TasksList
           id="inProgress"
           title="IN PROGRESS"
