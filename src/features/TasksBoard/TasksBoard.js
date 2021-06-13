@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import TasksList from "../../shared/components/TasksList";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -13,8 +13,7 @@ const BoardContainer = styled.div`
 
 const TasksBoard = () => {
   const [tasks, dispatch] = useReducer(tasksReducer, {
-    //status: "IDLE",
-    status: "LOADING",
+    status: "IDLE", // ["IDLE", "LOADING", "FETCHED", "ERROR"]
     todo: [
       {
         id: 1,

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PriorityIndicator from "./PriorityIndicator";
+import Skeleton from "react-loading-skeleton";
 
 const Container = styled.div`
   background-color: white;
@@ -22,12 +23,20 @@ const TaskDescription = styled.p`
   color: #696969;
 `;
 
-const TaskCard = ({ title, description, priority, ...rest }) => {
+const TaskCard = ({ loading, title, description, priority, ...rest }) => {
   return (
     <Container {...rest}>
-      <PriorityIndicator priority={priority} />
-      <TaskTitle>{title}</TaskTitle>
-      <TaskDescription>{description}</TaskDescription>
+      {!loading && <PriorityIndicator priority={priority} />}
+      {!loading ? (
+        <TaskTitle>{title}</TaskTitle>
+      ) : (
+        <Skeleton width="50%" height={25} />
+      )}
+      {!loading ? (
+        <TaskDescription>{description}</TaskDescription>
+      ) : (
+        <Skeleton style={{ marginTop: 5 }} width="70%" />
+      )}
     </Container>
   );
 };

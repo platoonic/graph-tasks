@@ -3,6 +3,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import TaskCard from "../TaskCard";
 import ListTitle from "./ListTitle";
 import Button from "../Button";
+import TaskCardLoading from "../TaskCard/TaskCard.loading";
 
 const ListContainer = styled.div`
   border-radius: 5px;
@@ -18,8 +19,9 @@ const DraggableItem = styled.div`
   margin-top: 20px;
 `;
 
-const TasksList = ({ id, title, tasks, canAddTasks }) => {
+const TasksList = ({ id, title, tasks, canAddTasks, status }) => {
   return (
+    // Droppable Area
     <Droppable droppableId={id}>
       {(provided) => (
         <ListContainer ref={provided.innerRef} {...provided.droppableProps}>
@@ -38,25 +40,35 @@ const TasksList = ({ id, title, tasks, canAddTasks }) => {
           ) : (
             <ListTitle title={title}>{title}</ListTitle>
           )}
-          {/* Draggable List Task items */}
-          {tasks.map((task, index) => (
-            <Draggable
-              key={task.id}
-              draggableId={String(task.id)}
-              index={index}
-            >
-              {(provided) => (
-                <DraggableItem
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  style={provided.draggableProps.style}
-                >
-                  <TaskCard {...task} />
+          {/* 
+              Show loading cards skeleton (if loading)
+              or Draggable List Task items (if fetched) 
+          */}
+          {status === "LOADING"
+            ? [...Array(3)].map((card, index) => (
+                <DraggableItem>
+                  <TaskCard key={index} loading />
                 </DraggableItem>
-              )}
-            </Draggable>
-          ))}
+              ))
+            : tasks.map((task, index) => (
+                <Draggable
+                  key={task.id}
+                  draggableId={String(task.id)}
+                  index={index}
+                >
+                  {(provided) => (
+                    <DraggableItem
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={provided.draggableProps.style}
+                    >
+                      <TaskCard {...task} />
+                    </DraggableItem>
+                  )}
+                </Draggable>
+              ))}
+
           {provided.placeholder}
         </ListContainer>
       )}
