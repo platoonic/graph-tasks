@@ -12,7 +12,7 @@ const StyledButton = styled.a`
   align-items: center;
   cursor: pointer;
   border-radius: 5px;
-  transition: 0.3s;
+  transition: 0.25s;
   user-select: none;
   &:hover {
     color: white;
@@ -21,11 +21,29 @@ const StyledButton = styled.a`
     props.success &&
     css`
       background-color: #35a143;
+      &:hover {
+        background-color: #14203d;
+        color: #35a143;
+      }
     `}
   ${(props) =>
     props.danger &&
     css`
       background-color: #bd3e3e;
+      &:hover {
+        background-color: #14203d;
+        color: #bd3e3e;
+      }
+    `}
+  ${(props) =>
+    props.outline &&
+    css`
+      background-color: transparent;
+      padding: 8px 11px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      &:hover {
+        border: 3px solid rgba(255, 255, 255, 0.9);
+      }
     `}
 `;
 

@@ -36,6 +36,7 @@ const TasksList = ({ id, title, tasks, canAddTasks, onTaskAdded, status }) => {
               {status !== "LOADING" &&
                 (!showTaskForm ? (
                   <Button
+                    outline
                     onClick={() =>
                       setShowTaskForm((showTaskForm) => !showTaskForm)
                     }
